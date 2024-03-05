@@ -1,30 +1,27 @@
-//Local-development runs application through this server config.
-//Rewrites all urls to serve `/index.html`, enabling hot-reloading with esbuild & React
 import express, { Express, Request, Response } from "express";
-import dotenv from 'dotenv';
-import path from 'path'
+import dotenv from 'dotenv'
 import cors from 'cors';
-dotenv.config()
-const build = require("./server");
-const port = 8080;
-const app: Express = express();
-app.use(cors());
 
+const port = 3000;
+const app: Express = express();
+
+dotenv.config()
+
+app.use(cors());
+//Apply all middleware
 console.log(
-  `Starting application in ${process.env.REACT_APP_NODE_ENV} mode.\n\n`
+  `Starting application in ${process.env.NODE_ENV} mode.\n\n`
 );
-// Serve static files from the 'build' directory
-app.use(express.static(path.join(__dirname, "build")));
-// Add a catch-all route to serve the root HTML file for client-side routing
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+
+//Append routes / endpoints
+app.get('/home', (req: Request, res: Response) => {
+  res.status(200).send('Hello "/home"');
+})
+// catch all testing route
+app.get("*", (req: Request, res: Response) => {
+  res.status(200).send('API online.')
 });
 // Start the Express server on port 8000
 app.listen(port, async () => {
-  console.log(`Express server is listening on localhost:${port}`);
-  const context = await build();
-  if (context) {
-    await context.watch();
-    await context.rebuild();
-  }
+  console.log(`Express server is listening on localhost:${port}`)
 });
