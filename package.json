@@ -1,9 +1,9 @@
 {
-  "type": "module",
   "name": "jg-poker-api",
   "version": "1.0.0",
   "description": "JG Poker Party",
-  "main": "server.ts",
+  "main": "build/server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
@@ -40,6 +40,6 @@
     "prettier": "^3.2.5",
     "prettier-eslint": "^16.3.0",
     "ts-node": "^10.9.2",
-    "typescript": "^4.9.5"
+    "typescript": "^5.3.3"
   }
 }
