@@ -4,8 +4,7 @@ import express, { Router, Request, Response } from 'express';
 import { Vote, Game, VotingSession } from '../typings.js';
 const votingRouter: Router = express.Router();
 votingRouter.get('/', (req: Request, res: Response) => {
-  console.log('hello voting')
-  res.status(200).send('Voting endpoint is available.')
+  res.status(200).send('Voåting endpoint is available.')
 })
 // Sample data store for demonstration purposes
 let votingSession: VotingSession = {
@@ -23,46 +22,46 @@ const checkVotingStatus = (req: Request, res: Response, next: any) => {
 };
 // Test endpoint
 // Endpoint to submit a vote
-// votingRouter.post('/submit', checkVotingStatus, (req: Request, res: Response) => {
-//   const { vote } = req.body;
+votingRouter.post('/submit', checkVotingStatus, (req: Request, res: Response) => {
+  const { vote } = req.body;
 
-//   if (!vote) {
-//     return res.status(400).json({ error: 'Vote is required.' });
-//   }
+  if (!vote) {
+    return res.status(400).json({ error: 'Vote is required.' });
+  }
 
-//   // Store the submitted vote
-//   votingSession.votes.push(vote);
+  // Store the submitted vote
+  votingSession.votes.push(vote);
 
-//   res.status(200).json({ success: true, message: 'Vote submitted successfully.' });
-// });
+  res.status(200).json({ success: true, message: 'Vote submitted successfully.' });
+});
 
 // // Endpoint to initialize voting
-// votingRouter.post('/init', (req: Request, res: Response) => {
-//   // Check if voting is already open
-//   if (votingSession.isOpen) {
-//     return res.status(400).json({ error: 'Voting is already open.' });
-//   }
+votingRouter.post('/init', (req: Request, res: Response) => {
+  // Check if voting is already open
+  if (votingSession.isOpen) {
+    return res.status(400).json({ error: 'Voting is already open.' });
+  }
 
-//   // Initialize voting
-//   votingSession = {
-//     isOpen: true,
-//     votes: [],
-//     id: '1'
-//   };
+  //   // Initialize voting
+  votingSession = {
+    isOpen: true,
+    votes: [],
+    id: '1'
+  };
 
-//   res.status(200).json({ success: true, message: 'Voting initialized.' });
-// });
+  res.status(200).json({ success: true, message: 'Voting initialized.' });
+});
 
 // // Endpoint to close voting
-// votingRouter.post('/close', (req: Request, res: Response) => {
-//   // Check if voting is already closed
-//   if (!votingSession.isOpen) {
-//     return res.status(400).json({ error: 'Voting is already closed.' });
-//   }
+votingRouter.post('/close', (req: Request, res: Response) => {
+  // Check if voting is already closed
+  if (!votingSession.isOpen) {
+    return res.status(400).json({ error: 'Voting is already closed.' });
+  }
 
-//   // Close voting
-//   votingSession.isOpen = false;
+  // Close voting
+  votingSession.isOpen = false;
 
-//   res.status(200).json({ success: true, message: 'Voting closed.' });
-// });
+  res.status(200).json({ success: true, message: 'Voting closed.' });
+});
 export default votingRouter;

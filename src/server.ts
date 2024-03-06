@@ -14,10 +14,7 @@ app.use(cors())
 // Apply all middleware
 
 // Appends all business logic endpoints
-app.use((req, res, next) => {
-  console.log('router pinged')
-  next()
-}, router)
+app.use('/', router)
 app.get('/test', (req, res) => {
   res.status(200).send('API online.');
 });
