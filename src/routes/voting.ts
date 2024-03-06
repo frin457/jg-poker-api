@@ -3,7 +3,10 @@
 import express, { Router, Request, Response } from 'express';
 import { Vote, Game, VotingSession } from '../typings.js';
 const votingRouter: Router = express.Router();
-
+votingRouter.get('/', (req: Request, res: Response) => {
+  console.log('hello voting')
+  res.status(200).send('Voting endpoint is available.')
+})
 // Sample data store for demonstration purposes
 let votingSession: VotingSession = {
   isOpen: false,
@@ -19,10 +22,6 @@ const checkVotingStatus = (req: Request, res: Response, next: any) => {
   next();
 };
 // Test endpoint
-votingRouter.get('/'), (req: Request, res: Response) => {
-  console.log('hello voting')
-  res.status(200).send('Voting endpoint is available.')
-}
 // Endpoint to submit a vote
 // votingRouter.post('/submit', checkVotingStatus, (req: Request, res: Response) => {
 //   const { vote } = req.body;
